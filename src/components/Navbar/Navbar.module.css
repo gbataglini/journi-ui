@@ -1,0 +1,13 @@
+.Container {
+  height: 32px;
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 8px;
+}
+
+
+a {
+  margin-left: 10px; 
+}

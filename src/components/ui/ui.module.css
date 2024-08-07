@@ -1,0 +1,43 @@
+button {
+ border-radius: 5px;
+ padding: 8px;
+ font-weight: 700;
+ border: 0; 
+}
+
+button:hover {
+    cursor: pointer;
+} 
+
+.coral {
+ background-color: #ED937B;
+ color: white;
+ &:hover {
+    background-color: #d25735;  
+}
+&:focus{
+    background-color: #ED937B;
+}
+}
+
+.light-blue {
+    background-color: #92B7E3;
+    color: white;
+    &:hover {
+        background-color: #232175;  
+    }
+    &:focus {
+        background-color: #92B7E3;
+    }
+}
+
+.dark-blue {
+    background-color: #232175;
+    color: white;
+    &:hover {
+        background-color: #92B7E3;  
+    }
+    &:focus {
+        background-color: #232175;
+    }
+}
