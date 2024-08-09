@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ui.module.css";
 
-interface ButtonProps {
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   text: string;
   onClick: () => void;
   buttonColour?: string;
@@ -13,9 +13,12 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   buttonColour = "coral",
   disabled = false,
+  className,
+  ...props
 }) => {
   return (
     <button
+      {...props}
       disabled={disabled}
       onClick={() => onClick()}
       className={styles[buttonColour]}

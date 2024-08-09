@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,900;1,900&display=swap');
+
+html {
+    background-color: #FFF9EF;
+    font-family: 'Inter';
+
+}
+
+h1 {
+    color: #232175;
+    margin: 8px;
+    font-size: 80px; 
+}
+
+h2 {
+    color:#232175 ;
+    margin: 8px;
+    font-size: 40px; 
+    margin-left:20px; 
+}
+
+h3 {
+    color:#ED937B;
+    margin: 8px;
+    font-size: 28px; 
+    margin-left:22px; 
+
+}
+
+.searchHeader {
+    background-color: rgba(160, 182, 223, 0.75);
+    --mask:
+    radial-gradient(67.08px at 50% calc(100% - 90px),#000 99%,#0000 101%) calc(50% - 60px) 0/120px 100%,
+    radial-gradient(67.08px at 50% calc(100% + 60px),#0000 99%,#000 101%) 50% calc(100% - 30px)/120px 100% repeat-x;
+  -webkit-mask: var(--mask);
+          mask: var(--mask);
+          height:550px; 
+      
+}
+
+
+
+.searchArea {
+    margin-top:10px;
+    display: flex; 
+    flex-direction: column;
+    margin-left: 15px; 
+    align-items: center;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.searchCol {
+    width: 90%;
+    display: flex; 
+    flex-direction: column;
+    margin-left: 10px; 
+}
+
+.searchBar {
+    width: 75%;
+
+}
+.headerImg {
+    margin: 15px; 
+    margin-top:35px; 
+    transform: scaleX(-1);
+}
+
