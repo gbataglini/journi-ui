@@ -3,7 +3,6 @@
 html {
     background-color: #FFF9EF;
     font-family: 'Inter';
-
 }
 
 h1 {
@@ -72,3 +71,13 @@ h3 {
     transform: scaleX(-1);
 }
 
+.button {
+    background-color: transparent;
+    color: #FC5E46;
+    border: none; 
+}
+
+
+.buttonIcon {
+    margin-top: 5px; 
+}

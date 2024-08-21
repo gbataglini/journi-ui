@@ -15,7 +15,7 @@ button:hover {
  background-color: #ED937B;
  color: white;
  &:hover {
-    background-color: #d25735;  
+    background-color: #FC5E46;  
 }
 &:focus{
     background-color: #ED937B;
@@ -42,4 +42,37 @@ button:hover {
     &:focus {
         background-color: #232175;
     }
+}
+
+
+.card {
+    margin: 15px;
+    margin-top: 60px;  
+    width: 40%; 
+    height: 350px; 
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.804);
+    box-shadow: 5px 5px 10px rgb(197, 198, 200);
+}
+
+.cardHeader {
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+    border-radius: 20px 20px 0px 0px ;
+    position: relative;
+    top: -40px;
+    background-color: #FC5E46;;
+}
+
+.cardHeaderTxt {
+    margin:10px 5px; 
+    color: #FFF9EF; 
+    font-size: 22px; 
+    font-weight: 400;
+}
+
+.cardIcon {
+    margin-left:10px;
+    margin-top: -2px; 
 }

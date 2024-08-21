@@ -14,13 +14,14 @@ ul, li {
 }
 
 .animatedLink {
-  margin-left: 10px; 
+  margin-left: 15px; 
   position: relative;
   display: block;
   transition: 0.5s;
   cursor: pointer;
   color: #FFF9EF;
   text-decoration: none;
+  font-size:16px; 
 }
 
 .animatedLink::after {
@@ -43,4 +44,17 @@ ul, li {
 .animatedLink:hover::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+.selectedLink {
+  margin-left: 15px; 
+  position: relative;
+  display: block;
+  transition: 0.5s;
+  cursor: pointer;
+  color: #FFF9EF;
+  text-decoration: none;
+  color:hwb(13 17% 9%);
+  text-decoration: none;
+  font-size:16px; 
 }
