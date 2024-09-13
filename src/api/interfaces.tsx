@@ -4,15 +4,21 @@ export interface IDestination {
   city: string;
   country: string;
   visited: boolean;
-  bounds?: ILocationBounds;
+  location?: ILocationBounds;
+}
+
+export interface IEstablishment {
+  id: number;
+  name: string;
+  address?: string;
 }
 
 export interface ILocationBounds {
-  northEast: IBoundProperties;
-  southWest: IBoundProperties;
-}
-
-export interface IBoundProperties {
   lat: string;
   lng: string;
+}
+
+export interface IDropdownOption {
+  id: string | number;
+  text: string;
 }

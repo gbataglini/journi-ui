@@ -15,15 +15,12 @@ h2 {
     color:#232175 ;
     margin: 8px;
     font-size: 40px; 
-    margin-left:20px; 
 }
 
 h3 {
     color:#ED937B;
     margin: 8px;
     font-size: 28px; 
-    margin-left:22px; 
-
 }
 
 .searchHeader {
@@ -75,9 +72,11 @@ h3 {
     background-color: transparent;
     color: #FC5E46;
     border: none; 
+    
 }
 
 
 .buttonIcon {
     margin-top: 5px; 
 }
+

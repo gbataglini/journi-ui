@@ -1,46 +1,70 @@
 button {
  border-radius: 5px;
  padding: 10px;
- font-weight: 700;
+ font-weight: 500;
  border: 0; 
- font-size: 16px;
+ font-size: 14px;
  margin-top: 10px;
+ display: flex;
+    align-items: center;
 }
 
 button:hover {
     cursor: pointer;
 } 
 
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
 .coral {
- background-color: #ED937B;
- color: white;
+    margin: 5px; 
+    background-color: transparent;
+    color: coral;
+    border: 1px coral solid;
+    border-radius: 30px;
  &:hover {
     background-color: #FC5E46;  
+    color:white; 
 }
 &:focus{
-    background-color: #ED937B;
+    background-color: #FC5E46;
 }
 }
 
 .light-blue {
-    background-color: #92B7E3;
-    color: white;
+    margin: 5px; 
+    background-color: transparent;
+    color: #92B7E3;
+    border: 1px #92B7E3 solid;
+    border-radius: 30px;
     &:hover {
-        background-color: #232175;  
+        background-color: #92B7E3;  
+        color:white
     }
     &:focus {
         background-color: #92B7E3;
+        color:white
     }
 }
 
 .dark-blue {
-    background-color: #232175;
-    color: white;
+    margin: 5px; 
+    background-color: transparent;
+    color: #232175;
+    border: 1px #232175 solid;
+    border-radius: 30px;
     &:hover {
-        background-color: #92B7E3;  
+        background-color: #232175;  
+        color: white; 
     }
     &:focus {
         background-color: #232175;
+        color: white;
     }
 }
 
@@ -75,4 +99,63 @@ button:hover {
 .cardIcon {
     margin-left:10px;
     margin-top: -2px; 
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000099;
+    display: block;
+  }
+  
+  .modalMain {
+    position: fixed;
+    background: white;
+    width: 35rem;
+    height: auto;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+  }
+
+  .modalHeaderText {
+    color: #232175;
+  }
+
+  .modalHeader {
+    padding: 5px 0px;
+    display: flex; 
+    flex-direction: row; 
+  }
+
+  .modalClose {
+    position: absolute;
+    right: 20px;
+    top: 18px;
+    color: #867070;
+     }
+  .modalClose:hover{
+    cursor: pointer;
+  }
+
+  .modalBody {
+    padding: 5px 15px;
+  }
+
+  .iconTile {
+    color: rgb(23, 60, 128);
+  background-color: rgba(160, 182, 223, 0.75);
+  padding: 10px;
+  border-radius: 20%;
+  margin:10px;
+}
+.searchBar {
+    width: 75%;
+
 }

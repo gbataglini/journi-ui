@@ -21,13 +21,13 @@ function Navbar() {
       </Link>
       <Link
         className={
-          location.indexOf("add") > -1
+          location.indexOf("destinations") > -1
             ? styles.selectedLink
             : styles.animatedLink
         }
-        to={`/add`}
+        to={`/destinations`}
       >
-        Add Destination
+        Destinations
       </Link>
     </div>
   );

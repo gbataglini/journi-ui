@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/add",
+    path: "/destinations",
     element: <AddDestination />,
   },
   {

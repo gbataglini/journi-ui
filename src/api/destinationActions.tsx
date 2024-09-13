@@ -4,72 +4,51 @@ export function destinationActions() {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   return {
-    async searchSuggestions(searchParam: string): Promise<IDestination[]> {
-      let suggestions: IDestination[] = [];
-
+    async addDestination(destination: IDestination): Promise<number | null> {
+      let newDestinationId = null;
+      let body = {
+        userId: 1,
+        city: destination.city,
+        country: destination.country,
+        visited: destination.visited,
+      };
       try {
-        const response = await fetch(
-          SERVER_URL +
-            `/api/v1/destinations/autocomplete?searchParam=${searchParam}`,
-          {}
-        );
+        let response = await fetch(SERVER_URL + `/api/v1/destinations`, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+          },
+          method: "POST",
+          body: JSON.stringify(body),
+        });
 
         if (response.ok) {
-          let fmtResponse = await response.json();
-          let predictions = fmtResponse.predictions;
-
-          for (let i = 0; i < predictions.length; i++) {
-            suggestions.push({
-              id: predictions[i].place_id,
-              name: predictions[i].description,
-              city: predictions[i].terms[0].value,
-              country: predictions[i].terms.at(-1).value,
-              visited: false,
-            });
-          }
+          newDestinationId = await response.json();
         }
       } catch (err) {
-        console.log(`Could not get suggestions: ${err}`);
+        console.log(`Could not add destination: ${err}`);
       }
-      return suggestions;
+      return newDestinationId;
     },
+    async getDestinations(userId: number): Promise<IDestination[]> {
+      let allDestinations: IDestination[] = [];
 
-    async googlePlaceDetails(
-      selectedPlace: IDestination
-    ): Promise<IDestination> {
-      let placeDetails: IDestination = selectedPlace;
       try {
         const response = await fetch(
-          SERVER_URL +
-            `/api/v1/destinations/placesDetails?locationId=${selectedPlace.id}`,
+          SERVER_URL + `/api/v1/${userId}/destinations`,
           {}
         );
 
         if (response.ok) {
           let fmtResponse = await response.json();
-          let details = fmtResponse.geometry.viewport;
-          placeDetails = {
-            id: selectedPlace.id,
-            name: selectedPlace.name,
-            city: selectedPlace.city,
-            country: selectedPlace.country,
-            visited: false,
-            bounds: {
-              northEast: {
-                lat: details.northeast.lat,
-                lng: details.northeast.lng,
-              },
-              southWest: {
-                lat: details.southwest.lat,
-                lng: details.southwest.lng,
-              },
-            },
-          };
+          allDestinations = fmtResponse;
         }
       } catch (err) {
-        console.log(`Could not get location details: ${err}`);
+        console.log(`Could not get destinations: ${err}`);
       }
-      return placeDetails;
+      return allDestinations;
     },
   };
 }
