@@ -24,6 +24,8 @@ export function mapsApiActions() {
               city: predictions[i].terms[0].value,
               country: predictions[i].terms.at(-1).value,
               visited: false,
+              googleMapsId: predictions[i].place_id,
+              destinationType: "City Break",
             });
           }
         }
@@ -57,6 +59,7 @@ export function mapsApiActions() {
               lat: details.lat,
               lng: details.lng,
             },
+            destinationType: "",
           };
         }
       } catch (err) {

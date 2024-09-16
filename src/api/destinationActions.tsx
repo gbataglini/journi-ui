@@ -11,6 +11,8 @@ export function destinationActions() {
         city: destination.city,
         country: destination.country,
         visited: destination.visited,
+        destinationType: destination.destinationType,
+        googleMapsId: destination.id,
       };
       try {
         let response = await fetch(SERVER_URL + `/api/v1/destinations`, {

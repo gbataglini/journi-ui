@@ -4,8 +4,12 @@
   "private": true,
   "options": {
     "proxy": "https://localhost:3000/",
-    "allowedHosts": ["localhost", "localhost:8080", ".localhost"]
-  }, 
+    "allowedHosts": [
+      "localhost",
+      "localhost:8080",
+      ".localhost"
+    ]
+  },
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",

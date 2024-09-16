@@ -4,7 +4,9 @@ export interface IDestination {
   city: string;
   country: string;
   visited: boolean;
+  destinationType: string;
   location?: ILocationBounds;
+  googleMapsId?: string;
 }
 
 export interface IEstablishment {
