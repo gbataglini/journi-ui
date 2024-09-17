@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import { blue, pink } from "@mui/material/colors";
 import BadgeDropdown from "../components/ui/BadgeDropdown";
+import DestinationCard from "../components/ui/DestinationCard";
 
 export default function AddDestination() {
   const { searchSuggestions, googlePlaceDetails } = mapsApiActions();
@@ -38,10 +39,6 @@ export default function AddDestination() {
     useState<IDestination | null>(null);
 
   const [destinations, setDestinations] = useState<IDestination[]>([]);
-
-  const [destinationType, setDestinationType] = useState<string | undefined>(
-    undefined
-  );
 
   useEffect(() => {
     const getAllDestinations = async () => {
@@ -76,14 +73,13 @@ export default function AddDestination() {
     let currentDestination = destination;
     currentDestination.visited = event.target.checked;
     setSelectedDestination(currentDestination);
-    setSelectedDestination(currentDestination);
   }
 
-  function handleDestinationTypeChange(event: SelectChangeEvent) {
-    let selectedType = event.target.value;
+  function handleDestinationTypeChange(value: string) {
     let currentDest = selectedDestination;
-    currentDest!.destinationType = selectedType;
-    setDestinationType(selectedType);
+    currentDest!.destinationType = value;
+
+    setSelectedDestination(currentDest);
   }
 
   async function getPlaceDetails(destination: IDestination) {
@@ -117,8 +113,7 @@ export default function AddDestination() {
                 <h2>{selectedDestination.country}</h2>
                 <BadgeDropdown
                   placeholder="Destination Type"
-                  value={destinationType}
-                  onChange={(e) => handleDestinationTypeChange(e)}
+                  onChange={(value) => handleDestinationTypeChange(value)}
                   dropdownOptions={dropdownOptions}
                 />
               </div>
@@ -147,7 +142,6 @@ export default function AddDestination() {
                   text="Cancel"
                   onClick={() => {
                     setSelectedDestination(null);
-                    setDestinationType(undefined);
                   }}
                   hasIcon={false}
                 />
@@ -165,13 +159,9 @@ export default function AddDestination() {
       </div>
       <div>
         {destinations != null && destinations.length > 0 ? (
-          <div>
+          <div className={styles.thirdRows}>
             {destinations.map((dest) => {
-              return (
-                <div key={dest.id}>
-                  <h3>{dest.city}</h3>
-                </div>
-              );
+              return <DestinationCard destination={dest} />;
             })}
           </div>
         ) : (

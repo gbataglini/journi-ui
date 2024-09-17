@@ -6,26 +6,34 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 interface BadgeDropdownProps {
-  value: string | undefined;
   placeholder: string;
-  onChange: (e: SelectChangeEvent) => void;
+  onChange: (value: string) => void;
   dropdownOptions: string[];
 }
 
 const BadgeDropdown: React.FC<BadgeDropdownProps> = ({
-  value,
   onChange,
   placeholder,
   dropdownOptions,
 }) => {
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(
+    undefined
+  );
+
+  function handleSelectedValueChange(e: SelectChangeEvent) {
+    let selectedItem = e.target.value;
+    onChange(selectedItem);
+    setSelectedValue(selectedItem);
+  }
+
   return (
     <Select
       placeholder="Destination Type"
-      value={value}
-      onChange={(e) => onChange(e)}
+      value={selectedValue}
+      onChange={(e) => handleSelectedValueChange(e)}
       input={<Input id="select-multiple-chip" disableUnderline />}
       displayEmpty
       renderValue={(value) => {
