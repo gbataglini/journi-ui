@@ -9,6 +9,12 @@ export interface IDestination {
   googleMapsId?: string;
 }
 
+export interface ICountry {
+  country: string;
+  visited: boolean;
+  destinationType: string[];
+}
+
 export interface IEstablishment {
   id: number;
   name: string;

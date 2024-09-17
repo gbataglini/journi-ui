@@ -6,25 +6,17 @@ import doggo from "../assets/images/doggo.png";
 import { mapsApiActions } from "../api/mapsApiActions";
 import { destinationActions } from "../../src/api/destinationActions";
 import { debounce } from "../utils/debounce";
-import { IDestination } from "../api/interfaces";
-import Button from "../components/ui/Button";
-import {
-  Box,
-  Checkbox,
-  Chip,
-  Input,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
+import { ICountry, IDestination } from "../api/interfaces";
+import { Button, ButtonGroup, Checkbox } from "@mui/material";
 import { blue, pink } from "@mui/material/colors";
 import BadgeDropdown from "../components/ui/BadgeDropdown";
 import DestinationCard from "../components/ui/DestinationCard";
+import PillButton from "../components/ui/PillButton";
 
 export default function AddDestination() {
   const { searchSuggestions, googlePlaceDetails } = mapsApiActions();
 
-  const { addDestination, getDestinations } = destinationActions();
+  const { addDestination, getCities, getCountries } = destinationActions();
 
   const [suggestions, setSuggestions] = useState<IDestination[]>([
     {
@@ -38,11 +30,13 @@ export default function AddDestination() {
   const [selectedDestination, setSelectedDestination] =
     useState<IDestination | null>(null);
 
-  const [destinations, setDestinations] = useState<IDestination[]>([]);
+  const [destinations, setDestinations] = useState<(IDestination | ICountry)[]>(
+    []
+  );
 
   useEffect(() => {
     const getAllDestinations = async () => {
-      setDestinations(await getDestinations(1));
+      setDestinations(await getCities(1));
     };
     getAllDestinations();
   }, []);
@@ -131,13 +125,13 @@ export default function AddDestination() {
                 <label>Visited</label>
               </div>
               <div className={styles.row}>
-                <Button
+                <PillButton
                   buttonColour="dark-blue"
                   text="Add Destination"
                   onClick={() => handleAddDestination(selectedDestination)}
                   hasIcon={false}
                 />
-                <Button
+                <PillButton
                   buttonColour="dark-blue"
                   text="Cancel"
                   onClick={() => {
@@ -157,13 +151,41 @@ export default function AddDestination() {
           />
         </div>
       </div>
+
       <div>
         {destinations != null && destinations.length > 0 ? (
-          <div className={styles.thirdRows}>
-            {destinations.map((dest) => {
-              return <DestinationCard destination={dest} />;
-            })}
-          </div>
+          <>
+            <div className={styles.centeredRow}>
+              <ButtonGroup disableRipple>
+                <Button
+                  onClick={async () => setDestinations(await getCities(1))}
+                >
+                  Cities
+                </Button>
+                <Button
+                  onClick={async () => setDestinations(await getCountries(1))}
+                >
+                  Countries
+                </Button>
+              </ButtonGroup>
+            </div>
+            <div className={styles.thirdRows}>
+              {destinations.map((dest) => {
+                return (
+                  <DestinationCard
+                    title={"city" in dest ? dest.city : dest.country}
+                    subtitle={"city" in dest ? dest.country : ""}
+                    visited={dest.visited}
+                    type={
+                      "city" in dest
+                        ? dest.destinationType
+                        : dest.destinationType[0]
+                    }
+                  />
+                );
+              })}
+            </div>
+          </>
         ) : (
           <div> </div>
         )}

@@ -11,7 +11,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({
+const PillButton: React.FC<ButtonProps> = ({
   text,
   onClick,
   buttonColour = "coral",
@@ -32,4 +32,4 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default Button;
+export default PillButton;

@@ -7,7 +7,7 @@ import { IDestination, IEstablishment } from "../../api/interfaces";
 import { debounce } from "../../utils/debounce";
 import { mapsApiActions } from "../../api/mapsApiActions";
 import { destinationActions } from "../../api/destinationActions";
-import Button from "./Button";
+import Button from "./PillButton";
 
 interface AddPlaceModalProps {
   modalType: string;
