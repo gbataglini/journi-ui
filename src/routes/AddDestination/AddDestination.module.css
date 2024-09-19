@@ -30,10 +30,12 @@ h3 {
     radial-gradient(67.08px at 50% calc(100% + 60px),#0000 99%,#000 101%) 50% calc(100% - 30px)/120px 100% repeat-x;
   -webkit-mask: var(--mask);
           mask: var(--mask);
-          height:550px; 
+          height:450px; 
 }
 
-
+a { 
+    text-decoration: none;
+}
 
 .searchArea {
     margin-top:10px;
@@ -51,9 +53,8 @@ h3 {
 }
 
 .centeredRow {
-    text-align: center;
-
-}
+    display: grid;
+    justify-content: center}
 
 .thirdRows {
     width: 100%; 
@@ -78,7 +79,7 @@ h3 {
 }
 .headerImg {
     margin: 15px; 
-    margin-top:35px; 
+    margin-top: -5px;    
     transform: scaleX(-1);
 }
 

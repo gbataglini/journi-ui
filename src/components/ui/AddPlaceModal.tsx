@@ -10,14 +10,12 @@ import { destinationActions } from "../../api/destinationActions";
 import Button from "./PillButton";
 
 interface AddPlaceModalProps {
-  modalType: string;
   modalHeader: string;
   onClose: () => void;
   selectedDestination: IDestination;
 }
 
 const AddPlaceModal: React.FC<AddPlaceModalProps> = ({
-  modalType,
   modalHeader,
   onClose,
   selectedDestination,

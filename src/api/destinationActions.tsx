@@ -13,6 +13,10 @@ export function destinationActions() {
         visited: destination.visited,
         destinationType: destination.destinationType,
         googleMapsId: destination.id,
+        location: {
+          lat: destination.location!.lat,
+          lng: destination.location!.lng,
+        },
       };
       try {
         let response = await fetch(SERVER_URL + `/api/v1/destinations`, {
@@ -71,6 +75,33 @@ export function destinationActions() {
         console.log(`Could not get destinations: ${err}`);
       }
       return allDestinations;
+    },
+
+    async getDestinationByID(
+      userId: number,
+      destinationID: number
+    ): Promise<IDestination> {
+      let destinationDetails: IDestination = {
+        id: 0,
+        city: "",
+        country: "",
+        visited: false,
+        destinationType: "",
+      };
+
+      try {
+        const response = await fetch(
+          SERVER_URL + `/api/v1/${userId}/destinations/${destinationID}`
+        );
+
+        if (response.ok) {
+          let fmtResponse = await response.json();
+          destinationDetails = fmtResponse;
+        }
+      } catch (err) {
+        console.log(`Could not get destination ID ${destinationID}: ${err}`);
+      }
+      return destinationDetails;
     },
   };
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import AddDestination from "./routes/AddDestination";
+import AddDestination from "./routes/AddDestination/AddDestination";
 import Home from "./routes/Home";
 import ErrorPage from "./routes/ErrorPage";
 import "./index.css";
@@ -8,6 +8,7 @@ import Landing from "./routes/Landing";
 //import reportWebVitals from "./reportWebVitals";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import DestinationDetails from "./routes/DestinationDetails/DestinationDetails";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/destinations",
     element: <AddDestination />,
+  },
+  {
+    path: "/destination",
+    element: <DestinationDetails />,
   },
   {
     path: "/home",

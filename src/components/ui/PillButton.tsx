@@ -26,7 +26,9 @@ const PillButton: React.FC<ButtonProps> = ({
       onClick={() => onClick()}
       className={styles[buttonColour]}
     >
-      {props.hasIcon && props.iconName === "Add" && <IoIosAdd size={20} />}
+      {props.hasIcon && props.iconName?.toLowerCase() === "add" && (
+        <IoIosAdd size={20} />
+      )}
       {text}
     </button>
   );

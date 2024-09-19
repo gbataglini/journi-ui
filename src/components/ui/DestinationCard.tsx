@@ -15,6 +15,7 @@ interface DestinationCardProps {
   subtitle: string;
   type: string;
   visited: boolean;
+  onCardClick: () => void;
 }
 
 const DestinationCard: React.FC<DestinationCardProps> = ({
@@ -22,6 +23,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({
   type,
   visited,
   subtitle,
+  onCardClick,
 }) => {
   function renderIcon() {
     switch (type) {
@@ -53,7 +55,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({
   }
 
   return (
-    <div className={styles.destinationCard}>
+    <div className={styles.destinationCard} onClick={() => onCardClick()}>
       {renderIcon()}
       <div className={styles.destinationCardContent}>
         <div className={styles.row}>

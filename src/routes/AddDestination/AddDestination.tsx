@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import styles from "./AddDestination.module.css";
-import doggo from "../assets/images/doggo.png";
-import { mapsApiActions } from "../api/mapsApiActions";
-import { destinationActions } from "../../src/api/destinationActions";
-import { debounce } from "../utils/debounce";
-import { ICountry, IDestination } from "../api/interfaces";
-import { Button, ButtonGroup, Checkbox } from "@mui/material";
+import doggo from "../../assets/images/doggo.png";
+import { mapsApiActions } from "../../api/mapsApiActions";
+import { destinationActions } from "../../api/destinationActions";
+import { debounce } from "../../utils/debounce";
+import { ICountry, IDestination } from "../../api/interfaces";
+import { Checkbox } from "@mui/material";
 import { blue, pink } from "@mui/material/colors";
-import BadgeDropdown from "../components/ui/BadgeDropdown";
-import DestinationCard from "../components/ui/DestinationCard";
-import PillButton from "../components/ui/PillButton";
+import BadgeDropdown from "../../components/ui/BadgeDropdown";
+import DestinationCard from "../../components/ui/DestinationCard";
+import PillButton from "../../components/ui/PillButton";
+import CapsuleButtonGroup from "../../components/ui/CapsuleButtonGroup";
+import { Link } from "react-router-dom";
 
 export default function AddDestination() {
   const { searchSuggestions, googlePlaceDetails } = mapsApiActions();
@@ -81,6 +83,10 @@ export default function AddDestination() {
     setSelectedDestination(result);
   }
 
+  function navigateToDestination(destinationID: number) {
+    window.location.href = `/destination?destinationID=${destinationID}`;
+  }
+
   const dropdownOptions = ["Beach Holiday", "City Break", "Nature Escape"];
 
   return (
@@ -92,8 +98,10 @@ export default function AddDestination() {
             <div className={styles.searchCol}>
               <h1>Where To? </h1>
               <ReactSearchAutocomplete
+                maxResults={4}
                 className={styles.searchBar}
                 items={suggestions}
+                inputDebounce={300}
                 onSearch={debounce(handleOnSearch, 300)}
                 onSelect={(dest: IDestination) => getPlaceDetails(dest)}
                 onClear={() => setSelectedDestination(null)}
@@ -156,32 +164,41 @@ export default function AddDestination() {
         {destinations != null && destinations.length > 0 ? (
           <>
             <div className={styles.centeredRow}>
-              <ButtonGroup disableRipple>
-                <Button
-                  onClick={async () => setDestinations(await getCities(1))}
-                >
-                  Cities
-                </Button>
-                <Button
-                  onClick={async () => setDestinations(await getCountries(1))}
-                >
-                  Countries
-                </Button>
-              </ButtonGroup>
+              <CapsuleButtonGroup
+                buttons={[
+                  {
+                    text: "Cities",
+                    onClick: async () => setDestinations(await getCities(1)),
+                  },
+                  {
+                    text: "Countries",
+                    onClick: async () => setDestinations(await getCountries(1)),
+                  },
+                ]}
+              />
             </div>
             <div className={styles.thirdRows}>
               {destinations.map((dest) => {
                 return (
-                  <DestinationCard
-                    title={"city" in dest ? dest.city : dest.country}
-                    subtitle={"city" in dest ? dest.country : ""}
-                    visited={dest.visited}
-                    type={
+                  <Link
+                    to={
                       "city" in dest
-                        ? dest.destinationType
-                        : dest.destinationType[0]
+                        ? `/destination?destinationID=${dest.id}`
+                        : `/destinations`
                     }
-                  />
+                  >
+                    <DestinationCard
+                      onCardClick={() => {}}
+                      title={"city" in dest ? dest.city : dest.country}
+                      subtitle={"city" in dest ? dest.country : ""}
+                      visited={dest.visited}
+                      type={
+                        "city" in dest
+                          ? dest.destinationType
+                          : dest.destinationType[0]
+                      }
+                    />
+                  </Link>
                 );
               })}
             </div>

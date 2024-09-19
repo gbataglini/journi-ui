@@ -1,6 +1,11 @@
 import React, { PropsWithChildren } from "react";
 import styles from "./ui.module.css";
-import { GiBoba, GiArcTriomphe, GiCarousel } from "react-icons/gi";
+import {
+  GiBoba,
+  GiArcTriomphe,
+  GiCarousel,
+  GiShoppingBag,
+} from "react-icons/gi";
 
 interface LargeCardProps {
   cardTitle: string;
@@ -28,6 +33,13 @@ const LargeCard: React.FC<PropsWithChildren<LargeCardProps>> = ({
 
         {iconName === "caroussel" && (
           <GiCarousel size={28} color="#FFF9EF" className={styles.cardIcon} />
+        )}
+        {iconName === "shopping" && (
+          <GiShoppingBag
+            size={28}
+            color="#FFF9EF"
+            className={styles.cardIcon}
+          />
         )}
         <p className={styles.cardHeaderTxt}>{cardTitle}</p>
       </div>
