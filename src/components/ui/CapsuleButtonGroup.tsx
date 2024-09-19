@@ -16,33 +16,33 @@ interface ButtonProps {
 }
 
 const CapsuleButtonGroup: React.FC<CapsuleButtonGroupProps> = ({ buttons }) => {
-  const [selected, setSelected] = useState(buttons[0].text);
+  const [selected, setSelected] = useState(0);
 
   return (
     <div className={styles.row}>
       <button
         className={
-          selected === buttons[0].text
+          selected === 0
             ? styles.firstCapsuleButtonSelected
             : styles.firstCapsuleButton
         }
         onClick={() => {
-          setSelected(buttons[0].text);
+          setSelected(0);
           buttons[0].onClick();
         }}
       >
         {buttons[0].text}
       </button>
-      {buttons.slice(1, buttons.length - 1).map((button) => {
+      {buttons.slice(1, buttons.length - 1).map((button, index) => {
         return (
           <button
             className={
-              selected === button.text
+              selected === index + 1
                 ? styles.middleCapsuleButtonSelected
                 : styles.middleCapsuleButton
             }
             onClick={() => {
-              setSelected(button.text);
+              setSelected(index + 1);
               button.onClick();
             }}
           >
@@ -52,12 +52,12 @@ const CapsuleButtonGroup: React.FC<CapsuleButtonGroupProps> = ({ buttons }) => {
       })}
       <button
         className={
-          selected === buttons[buttons.length - 1].text
+          selected === buttons.length - 1
             ? styles.lastCapsuleButtonSelected
             : styles.lastCapsuleButton
         }
         onClick={() => {
-          setSelected(buttons[buttons.length - 1].text);
+          setSelected(buttons.length - 1);
           buttons[buttons.length - 1].onClick();
         }}
       >
