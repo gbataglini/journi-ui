@@ -1,9 +1,20 @@
 import { ICountry, IDestination } from "./interfaces";
+import PocketBase, { ListResult } from "pocketbase";
+
+const pb = new PocketBase("http://127.0.0.1:8090");
 
 export function destinationActions() {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   return {
+    async logInUser() {
+      const authData = await pb
+        .collection("users")
+        .authWithPassword("YOUR_EMAIL", "YOUR_PASSWORD");
+
+      return authData;
+    },
+
     async addDestination(destination: IDestination): Promise<number | null> {
       let newDestinationId = null;
       let body = {
@@ -39,42 +50,17 @@ export function destinationActions() {
       return newDestinationId;
     },
 
-    async getCities(userId: number): Promise<IDestination[]> {
-      let allDestinations: IDestination[] = [];
+    async getAllDestinations(
+      userId: number
+    ): Promise<ListResult<IDestination>> {
+      this.logInUser();
+      const resultList = await pb
+        .collection("destinations")
+        .getList<IDestination>(1, 50, {
+          filter: "someField1 != someField2",
+        });
 
-      try {
-        const response = await fetch(
-          SERVER_URL + `/api/v1/${userId}/destinations`,
-          {}
-        );
-
-        if (response.ok) {
-          let fmtResponse = await response.json();
-          allDestinations = fmtResponse;
-        }
-      } catch (err) {
-        console.log(`Could not get destinations: ${err}`);
-      }
-      return allDestinations;
-    },
-
-    async getCountries(userId: number): Promise<ICountry[]> {
-      let allDestinations: ICountry[] = [];
-
-      try {
-        const response = await fetch(
-          SERVER_URL + `/api/v1/${userId}/countries`,
-          {}
-        );
-
-        if (response.ok) {
-          let fmtResponse = await response.json();
-          allDestinations = fmtResponse;
-        }
-      } catch (err) {
-        console.log(`Could not get destinations: ${err}`);
-      }
-      return allDestinations;
+      return resultList;
     },
 
     async getDestinationByID(

@@ -14,11 +14,12 @@ import DestinationCard from "../../components/ui/DestinationCard";
 import PillButton from "../../components/ui/PillButton";
 import CapsuleButtonGroup from "../../components/ui/CapsuleButtonGroup";
 import { Link } from "react-router-dom";
+import { ListResult } from "pocketbase";
 
 export default function AddDestination() {
   const { searchSuggestions, googlePlaceDetails } = mapsApiActions();
 
-  const { addDestination, getCities, getCountries } = destinationActions();
+  const { addDestination, getAllDestinations } = destinationActions();
 
   const [suggestions, setSuggestions] = useState<IDestination[]>([
     {
@@ -32,15 +33,15 @@ export default function AddDestination() {
   const [selectedDestination, setSelectedDestination] =
     useState<IDestination | null>(null);
 
-  const [destinations, setDestinations] = useState<(IDestination | ICountry)[]>(
+  const [destinations, setDestinations] = useState<ListResult<IDestination>>(
     []
   );
 
   useEffect(() => {
-    const getAllDestinations = async () => {
-      setDestinations(await getCities(1));
+    const gad = async () => {
+      setDestinations(await getAllDestinations(1));
     };
-    getAllDestinations();
+    gad();
   }, []);
 
   async function handleOnSearch(input: string) {
@@ -168,11 +169,13 @@ export default function AddDestination() {
                 buttons={[
                   {
                     text: "Cities",
-                    onClick: async () => setDestinations(await getCities(1)),
+                    onClick: async () =>
+                      setDestinations(await getAllDestinations(1)),
                   },
                   {
                     text: "Countries",
-                    onClick: async () => setDestinations(await getCountries(1)),
+                    onClick: async () =>
+                      setDestinations(await getAllDestinations(1)),
                   },
                 ]}
               />
