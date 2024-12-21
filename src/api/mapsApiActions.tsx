@@ -9,7 +9,7 @@ export function mapsApiActions() {
       try {
         const response = await fetch(
           SERVER_URL +
-            `/api/v1/destinations/autocomplete?searchParam=${searchParam}`,
+            `/v1/destinations/autocomplete?searchParam=${searchParam}`,
           {}
         );
 
@@ -42,7 +42,7 @@ export function mapsApiActions() {
       try {
         const response = await fetch(
           SERVER_URL +
-            `/api/v1/destinations/placesDetails?locationId=${selectedPlace.id}`,
+            `/v1/destinations/placesDetails?locationId=${selectedPlace.id}`,
           {}
         );
 
@@ -75,7 +75,7 @@ export function mapsApiActions() {
       try {
         const response = await fetch(
           SERVER_URL +
-            `/api/v1/destinations/placesDetails?locationId=${selectedEst.id}`,
+            `/v1/destinations/placesDetails?locationId=${selectedEst.id}`,
           {}
         );
 
@@ -102,7 +102,7 @@ export function mapsApiActions() {
       try {
         const response = await fetch(
           SERVER_URL +
-            `/api/v1/destinations/establishmentSearch?searchParam=${input}&lat=${destination?.location?.lat}&lng=${destination?.location?.lng}`,
+            `/v1/destinations/establishmentSearch?searchParam=${input}&lat=${destination?.location?.lat}&lng=${destination?.location?.lng}`,
           {}
         );
         if (response.ok) {

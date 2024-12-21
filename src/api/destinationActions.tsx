@@ -1,20 +1,10 @@
+import { getPb } from "../backend/pocketbase";
 import { ICountry, IDestination } from "./interfaces";
-import PocketBase, { ListResult } from "pocketbase";
-
-const pb = new PocketBase("http://127.0.0.1:8090");
 
 export function destinationActions() {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   return {
-    async logInUser() {
-      const authData = await pb
-        .collection("users")
-        .authWithPassword("YOUR_EMAIL", "YOUR_PASSWORD");
-
-      return authData;
-    },
-
     async addDestination(destination: IDestination): Promise<number | null> {
       let newDestinationId = null;
       let body = {
@@ -50,17 +40,14 @@ export function destinationActions() {
       return newDestinationId;
     },
 
-    async getAllDestinations(
-      userId: number
-    ): Promise<ListResult<IDestination>> {
-      this.logInUser();
+    async getAllDestinations(userId: number): Promise<IDestination[]> {
+      const pb = getPb();
+
       const resultList = await pb
         .collection("destinations")
-        .getList<IDestination>(1, 50, {
-          filter: "someField1 != someField2",
-        });
+        .getList<IDestination>(1, 50);
 
-      return resultList;
+      return resultList.items;
     },
 
     async getDestinationByID(

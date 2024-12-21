@@ -33,7 +33,7 @@ export default function AddDestination() {
   const [selectedDestination, setSelectedDestination] =
     useState<IDestination | null>(null);
 
-  const [destinations, setDestinations] = useState<ListResult<IDestination>>(
+  const [destinations, setDestinations] = useState<(IDestination | ICountry)[]>(
     []
   );
 
