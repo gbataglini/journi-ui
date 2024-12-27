@@ -55,10 +55,8 @@ export function mapsApiActions() {
             city: selectedPlace.city,
             country: selectedPlace.country,
             visited: false,
-            location: {
-              lat: details.lat,
-              lng: details.lng,
-            },
+            lat: details.lat,
+            lng: details.lng,
             destinationType: "",
           };
         }
@@ -102,7 +100,7 @@ export function mapsApiActions() {
       try {
         const response = await fetch(
           SERVER_URL +
-            `/v1/destinations/establishmentSearch?searchParam=${input}&lat=${destination?.location?.lat}&lng=${destination?.location?.lng}`,
+            `/v1/destinations/establishmentSearch?searchParam=${input}&lat=${destination?.lat}&lng=${destination?.lng}`,
           {}
         );
         if (response.ok) {

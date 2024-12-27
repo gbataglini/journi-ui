@@ -7,8 +7,14 @@ import "./index.css";
 import Landing from "./routes/Landing";
 //import reportWebVitals from "./reportWebVitals";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  BrowserRouter,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import DestinationDetails from "./routes/DestinationDetails/DestinationDetails";
+import UserLogin from "./routes/UserLogIn/UserLogin";
+import AuthProvider from "./contexts/AuthContext";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +34,10 @@ const router = createBrowserRouter([
     path: "/home",
     element: <Home />,
   },
+  {
+    path: "/login",
+    element: <UserLogin />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(
@@ -35,7 +45,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
 

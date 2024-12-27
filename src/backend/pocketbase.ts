@@ -1,10 +1,9 @@
-import PocketBase from "pocketbase"
+import PocketBase from "pocketbase";
 
-const pb = new PocketBase(process.env.REACT_APP_SERVER_URL)
+const pb = new PocketBase(process.env.REACT_APP_SERVER_URL);
 
-pb.autoCancellation(false)
-//pb.collection("users").authWithPassword("leonardo@sloth.com", "123456789");
+pb.autoCancellation(false);
 
 export function getPb(): PocketBase {
-  return pb
+  return pb;
 }

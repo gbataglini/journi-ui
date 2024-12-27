@@ -14,12 +14,12 @@ import DestinationCard from "../../components/ui/DestinationCard";
 import PillButton from "../../components/ui/PillButton";
 import CapsuleButtonGroup from "../../components/ui/CapsuleButtonGroup";
 import { Link } from "react-router-dom";
-import { ListResult } from "pocketbase";
 
 export default function AddDestination() {
   const { searchSuggestions, googlePlaceDetails } = mapsApiActions();
 
-  const { addDestination, getAllDestinations } = destinationActions();
+  const { addDestination, getAllDestinations, getAllCountries } =
+    destinationActions();
 
   const [suggestions, setSuggestions] = useState<IDestination[]>([
     {
@@ -39,7 +39,7 @@ export default function AddDestination() {
 
   useEffect(() => {
     const gad = async () => {
-      setDestinations(await getAllDestinations(1));
+      setDestinations(await getAllDestinations());
     };
     gad();
   }, []);
@@ -170,12 +170,12 @@ export default function AddDestination() {
                   {
                     text: "Cities",
                     onClick: async () =>
-                      setDestinations(await getAllDestinations(1)),
+                      setDestinations(await getAllDestinations()),
                   },
                   {
                     text: "Countries",
                     onClick: async () =>
-                      setDestinations(await getAllDestinations(1)),
+                      setDestinations(await getAllCountries()),
                   },
                 ]}
               />

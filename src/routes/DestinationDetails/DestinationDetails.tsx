@@ -18,7 +18,7 @@ export default function DestinationDetails() {
 
   useEffect(() => {
     const getAllDestinations = async () => {
-      setDestinationDetails(await getDestinationByID(1, Number(destinationID)));
+      setDestinationDetails(await getDestinationByID(destinationID!));
     };
     getAllDestinations();
   }, []);
