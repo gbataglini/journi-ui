@@ -8,34 +8,26 @@ function Navbar() {
   const location = window.location.href;
   const auth = useAuth();
 
+  function setIconNavigation() {
+    if (auth.token === "") {
+      window.location.href = "/";
+    } else {
+      window.location.href = "/home";
+    }
+  }
+
   return (
     <div className={styles.Container}>
-      <img src={propeller} width={48} height={48} alt="propeller icon" />
+      <img
+        src={propeller}
+        width={48}
+        height={48}
+        alt="propeller icon"
+        onClick={() => setIconNavigation()}
+      />
 
       {auth.token === "" ? (
-        <>
-          <Link
-            className={
-              location.indexOf("signin") > -1
-                ? styles.selectedLink
-                : styles.animatedLink
-            }
-            to={`/login`}
-          >
-            Sign In
-          </Link>
-
-          <Link
-            className={
-              location.indexOf("signin") > -1
-                ? styles.selectedLink
-                : styles.animatedLink
-            }
-            to={`/login`}
-          >
-            Sign Up
-          </Link>
-        </>
+        <div></div>
       ) : (
         <>
           <Link
@@ -46,7 +38,7 @@ function Navbar() {
             }
             to={`/home`}
           >
-            Home
+            home
           </Link>
           <Link
             className={
@@ -56,7 +48,7 @@ function Navbar() {
             }
             to={`/destinations`}
           >
-            Destinations
+            destinations
           </Link>
 
           <Link
@@ -68,7 +60,7 @@ function Navbar() {
             onClick={() => auth.logout()}
             to={`/login`}
           >
-            Sign out
+            sign out
           </Link>
         </>
       )}

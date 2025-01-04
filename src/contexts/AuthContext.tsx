@@ -17,6 +17,7 @@ interface ProviderProps {
   token: string;
   login(data: Login): void;
   logout(): void;
+  loginSuccess: boolean | null;
 }
 
 const pb = getPb();
@@ -26,6 +27,7 @@ const AuthContext = createContext<ProviderProps>({
   token: "",
   login: () => {},
   logout: () => {},
+  loginSuccess: null,
 });
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -34,7 +36,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     : null;
   const [user, setUser] = useState<UserDetails | null>(storedInfo);
   const [token, setToken] = useState<string>(storedInfo?.token || "");
-
+  const [loginSuccess, setLoginSuccess] = useState<boolean | null>(null);
   const login = async (data: Login) => {
     try {
       const pbLogin = await pb
@@ -51,9 +53,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       };
 
       localStorage.setItem("user", JSON.stringify(userData));
+      setLoginSuccess(true);
       window.location.href = "/destinations";
     } catch (e) {
       console.log(e);
+      setLoginSuccess(false);
     }
   };
 
@@ -65,7 +69,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, token, login, logout, loginSuccess }}>
       {children}
     </AuthContext.Provider>
   );

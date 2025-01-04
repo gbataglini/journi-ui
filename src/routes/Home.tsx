@@ -7,7 +7,6 @@ function Home() {
   return (
     <div>
       <Navbar />
-
       <h3>Welcome Back,</h3>
       <h2>
         {" "}

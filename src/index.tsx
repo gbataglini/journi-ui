@@ -19,7 +19,7 @@ import AuthProvider from "./contexts/AuthContext";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Landing />,
+    element: <UserLogin />,
     errorElement: <ErrorPage />,
   },
   {
