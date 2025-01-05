@@ -2,7 +2,6 @@ import { getPb } from "../backend/pocketbase";
 import { ICountry, IDestination } from "./interfaces";
 
 export function destinationActions() {
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const pb = getPb();
 
   return {
@@ -47,6 +46,20 @@ export function destinationActions() {
         .getOne<IDestination>(destinationID);
 
       return record;
+    },
+    async getRandomDestination(): Promise<IDestination> {
+      const randomDestination = await pb
+        .collection("random_destination")
+        .getList<IDestination>(1, 1);
+
+      return randomDestination.items[0];
+    },
+    async getRandomUnvisitedDestination(): Promise<IDestination> {
+      const randomDestination = await pb
+        .collection("random_destination_not_visited")
+        .getList<IDestination>(1, 1);
+
+      return randomDestination.items[0];
     },
   };
 }

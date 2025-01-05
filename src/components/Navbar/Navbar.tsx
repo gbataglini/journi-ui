@@ -10,7 +10,7 @@ function Navbar() {
 
   function setIconNavigation() {
     if (auth.token === "") {
-      window.location.href = "/";
+      window.location.href = "/login";
     } else {
       window.location.href = "/home";
     }

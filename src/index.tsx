@@ -15,6 +15,7 @@ import {
 import DestinationDetails from "./routes/DestinationDetails/DestinationDetails";
 import UserLogin from "./routes/UserLogIn/UserLogin";
 import AuthProvider from "./contexts/AuthContext";
+import ProtectedRoute from "./hooks/RequireAuth";
 
 const router = createBrowserRouter([
   {
@@ -24,15 +25,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/destinations",
-    element: <AddDestination />,
+    element: (
+      <ProtectedRoute>
+        <AddDestination />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/destination",
-    element: <DestinationDetails />,
+    element: (
+      <ProtectedRoute>
+        <DestinationDetails />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/home",
-    element: <Home />,
+    element: (
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/login",

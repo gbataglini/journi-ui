@@ -18,8 +18,12 @@ import { Link } from "react-router-dom";
 export default function AddDestination() {
   const { searchSuggestions, googlePlaceDetails } = mapsApiActions();
 
-  const { addDestination, getAllDestinations, getAllCountries } =
-    destinationActions();
+  const {
+    addDestination,
+    getAllDestinations,
+    getAllCountries,
+    getRandomDestination,
+  } = destinationActions();
 
   const [suggestions, setSuggestions] = useState<IDestination[]>([
     {
@@ -180,6 +184,20 @@ export default function AddDestination() {
                 ]}
               />
             </div>
+            {destinations.length > 0 && (
+              <div>
+                <h3>Not sure where to go next? </h3>
+                <PillButton
+                  onClick={() => getRandomDestination()}
+                  text="pick for me"
+                  hasIcon={false}
+                />
+                <span>
+                  <Checkbox />
+                  <p>Include visited destinations</p>
+                </span>
+              </div>
+            )}
             <div className={styles.thirdRows}>
               {destinations.map((dest) => {
                 return (
