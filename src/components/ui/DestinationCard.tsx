@@ -61,7 +61,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({
         <div className={styles.row}>
           <h2 className={styles.destinationCardTitle}>{title}</h2>
 
-          {visited && (
+          {visited ? (
             <div className={styles.badge}>
               <Tooltip title="Visited">
                 <IconButton>
@@ -69,6 +69,8 @@ const DestinationCard: React.FC<DestinationCardProps> = ({
                 </IconButton>
               </Tooltip>
             </div>
+          ) : (
+            <div />
           )}
         </div>
 

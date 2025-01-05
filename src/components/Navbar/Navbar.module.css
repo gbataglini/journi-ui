@@ -6,22 +6,25 @@
   display: flex;
 }
 
-ul, li {
+ul,
+li {
   display: flex;
   flex-direction: row;
   display: inline;
-  list-style-type: none; 
+  list-style-type: none;
+  font-variant: small-caps;
 }
 
 .animatedLink {
-  margin-left: 15px; 
+  margin-left: 15px;
   position: relative;
   display: block;
   transition: 0.5s;
   cursor: pointer;
-  color: #FFF9EF;
+  color: #232175;
   text-decoration: none;
-  font-size:16px; 
+  font-size: 16px;
+  font-variant: small-caps;
 }
 
 .animatedLink::after {
@@ -35,6 +38,7 @@ ul, li {
   transform: scaleX(0);
   transform-origin: right;
   background-color: hwb(13 17% 9%);
+  font-variant: small-caps;
 }
 
 .animatedLink:hover {
@@ -47,14 +51,15 @@ ul, li {
 }
 
 .selectedLink {
-  margin-left: 15px; 
+  margin-left: 15px;
   position: relative;
   display: block;
   transition: 0.5s;
   cursor: pointer;
-  color: #FFF9EF;
+  color: #232175;
   text-decoration: none;
-  color:hwb(13 17% 9%);
+  color: hwb(13 17% 9%);
   text-decoration: none;
-  font-size:16px; 
+  font-size: 16px;
+  font-variant: small-caps;
 }

@@ -1,0 +1,103 @@
+input {
+  color: #232175;
+}
+
+.pageBackground {
+  background-color: #f4e9ef;
+  width: 100%;
+  justify-content: center;
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: -1;
+}
+
+.fieldsContainer {
+  width: 30%;
+  margin-right: 20%;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff75;
+  border-radius: 20px;
+  height: 450px;
+  align-self: center;
+  box-shadow: 10px 10px 5px rgb(197 198 200 / 58%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.imageContainer {
+  width: 60%;
+  text-align: center;
+}
+
+.inputContainer {
+  margin: 10px;
+  width: 280px;
+}
+.row {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.error {
+  color: hwb(13 17% 9%);
+  font-size: 12px;
+}
+
+.forgotPassword {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: -12px 14px -12px -10px;
+}
+.animatedLink {
+  position: relative;
+  display: block;
+  transition: 0.5s;
+  cursor: pointer;
+  color: #232175;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.animatedLink::after {
+  position: absolute;
+  content: "";
+  height: 3px;
+  top: 100%;
+  left: 0;
+  transition: transform 0.5s;
+  transform: scaleX(0);
+  transform-origin: right;
+  background-color: hwb(13 17% 9%);
+}
+
+.animatedLink:hover {
+  color: hwb(13 17% 9%);
+}
+
+.animatedLink:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.divider {
+  margin: 15px;
+  color: #232175;
+  border-top: 1px solid #232175;
+  border-radius: 50%;
+}
+@media screen and (max-width: 1024px) {
+  .imageContainer {
+    display: none !important;
+  }
+
+  .fieldsContainer {
+    width: 100%;
+    margin: 0;
+  }
+}

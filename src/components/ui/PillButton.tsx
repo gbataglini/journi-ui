@@ -29,7 +29,7 @@ const PillButton: React.FC<ButtonProps> = ({
       {props.hasIcon && props.iconName?.toLowerCase() === "add" && (
         <IoIosAdd size={20} />
       )}
-      {text}
+      {text.toLowerCase()}
     </button>
   );
 };

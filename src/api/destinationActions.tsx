@@ -1,107 +1,65 @@
+import { getPb } from "../backend/pocketbase";
 import { ICountry, IDestination } from "./interfaces";
 
 export function destinationActions() {
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  const pb = getPb();
 
   return {
-    async addDestination(destination: IDestination): Promise<number | null> {
-      let newDestinationId = null;
+    async addDestination(destination: IDestination): Promise<IDestination> {
+      console.log(pb.authStore.record?.id);
       let body = {
-        userId: 1,
+        userId: pb.authStore.record?.id,
         city: destination.city,
         country: destination.country,
         visited: destination.visited,
         destinationType: destination.destinationType,
         googleMapsId: destination.id,
-        location: {
-          lat: destination.location!.lat,
-          lng: destination.location!.lng,
-        },
-      };
-      try {
-        let response = await fetch(SERVER_URL + `/api/v1/destinations`, {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": "true",
-          },
-          method: "POST",
-          body: JSON.stringify(body),
-        });
-
-        if (response.ok) {
-          newDestinationId = await response.json();
-        }
-      } catch (err) {
-        console.log(`Could not add destination: ${err}`);
-      }
-      return newDestinationId;
-    },
-
-    async getCities(userId: number): Promise<IDestination[]> {
-      let allDestinations: IDestination[] = [];
-
-      try {
-        const response = await fetch(
-          SERVER_URL + `/api/v1/${userId}/destinations`,
-          {}
-        );
-
-        if (response.ok) {
-          let fmtResponse = await response.json();
-          allDestinations = fmtResponse;
-        }
-      } catch (err) {
-        console.log(`Could not get destinations: ${err}`);
-      }
-      return allDestinations;
-    },
-
-    async getCountries(userId: number): Promise<ICountry[]> {
-      let allDestinations: ICountry[] = [];
-
-      try {
-        const response = await fetch(
-          SERVER_URL + `/api/v1/${userId}/countries`,
-          {}
-        );
-
-        if (response.ok) {
-          let fmtResponse = await response.json();
-          allDestinations = fmtResponse;
-        }
-      } catch (err) {
-        console.log(`Could not get destinations: ${err}`);
-      }
-      return allDestinations;
-    },
-
-    async getDestinationByID(
-      userId: number,
-      destinationID: number
-    ): Promise<IDestination> {
-      let destinationDetails: IDestination = {
-        id: 0,
-        city: "",
-        country: "",
-        visited: false,
-        destinationType: "",
+        lat: destination.lat,
+        lng: destination.lng,
       };
 
-      try {
-        const response = await fetch(
-          SERVER_URL + `/api/v1/${userId}/destinations/${destinationID}`
-        );
+      const record = await pb
+        .collection("destinations")
+        .create<IDestination>(body);
+      return record;
+    },
 
-        if (response.ok) {
-          let fmtResponse = await response.json();
-          destinationDetails = fmtResponse;
-        }
-      } catch (err) {
-        console.log(`Could not get destination ID ${destinationID}: ${err}`);
-      }
-      return destinationDetails;
+    async getAllDestinations(): Promise<IDestination[]> {
+      const resultList = await pb
+        .collection("destinations")
+        .getList<IDestination>(1, 50, {});
+
+      return resultList.items;
+    },
+
+    async getAllCountries(): Promise<ICountry[]> {
+      const resultList = await pb
+        .collection("countries")
+        .getList<ICountry>(1, 50);
+
+      return resultList.items;
+    },
+
+    async getDestinationByID(destinationID: string): Promise<IDestination> {
+      const record = await pb
+        .collection("destinations")
+        .getOne<IDestination>(destinationID);
+
+      return record;
+    },
+    async getRandomDestination(): Promise<IDestination> {
+      const randomDestination = await pb
+        .collection("random_destination")
+        .getList<IDestination>(1, 1);
+
+      return randomDestination.items[0];
+    },
+    async getRandomUnvisitedDestination(): Promise<IDestination> {
+      const randomDestination = await pb
+        .collection("random_destination_not_visited")
+        .getList<IDestination>(1, 1);
+
+      return randomDestination.items[0];
     },
   };
 }

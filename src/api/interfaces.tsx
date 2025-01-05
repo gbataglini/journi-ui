@@ -5,7 +5,8 @@ export interface IDestination {
   country: string;
   visited: boolean;
   destinationType: string;
-  location?: ILocationBounds;
+  lat?: string;
+  lng?: string;
   googleMapsId?: string;
 }
 
@@ -19,11 +20,6 @@ export interface IEstablishment {
   id: number;
   name: string;
   address?: string;
-}
-
-export interface ILocationBounds {
-  lat: string;
-  lng: string;
 }
 
 export interface IDropdownOption {

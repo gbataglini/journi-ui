@@ -18,7 +18,12 @@ import { Link } from "react-router-dom";
 export default function AddDestination() {
   const { searchSuggestions, googlePlaceDetails } = mapsApiActions();
 
-  const { addDestination, getCities, getCountries } = destinationActions();
+  const {
+    addDestination,
+    getAllDestinations,
+    getAllCountries,
+    getRandomDestination,
+  } = destinationActions();
 
   const [suggestions, setSuggestions] = useState<IDestination[]>([
     {
@@ -37,10 +42,10 @@ export default function AddDestination() {
   );
 
   useEffect(() => {
-    const getAllDestinations = async () => {
-      setDestinations(await getCities(1));
+    const gad = async () => {
+      setDestinations(await getAllDestinations());
     };
-    getAllDestinations();
+    gad();
   }, []);
 
   async function handleOnSearch(input: string) {
@@ -168,15 +173,31 @@ export default function AddDestination() {
                 buttons={[
                   {
                     text: "Cities",
-                    onClick: async () => setDestinations(await getCities(1)),
+                    onClick: async () =>
+                      setDestinations(await getAllDestinations()),
                   },
                   {
                     text: "Countries",
-                    onClick: async () => setDestinations(await getCountries(1)),
+                    onClick: async () =>
+                      setDestinations(await getAllCountries()),
                   },
                 ]}
               />
             </div>
+            {destinations.length > 0 && (
+              <div>
+                <h3>Not sure where to go next? </h3>
+                <PillButton
+                  onClick={() => getRandomDestination()}
+                  text="pick for me"
+                  hasIcon={false}
+                />
+                <span>
+                  <Checkbox />
+                  <p>Include visited destinations</p>
+                </span>
+              </div>
+            )}
             <div className={styles.thirdRows}>
               {destinations.map((dest) => {
                 return (

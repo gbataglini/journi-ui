@@ -31,7 +31,7 @@ const CapsuleButtonGroup: React.FC<CapsuleButtonGroupProps> = ({ buttons }) => {
           buttons[0].onClick();
         }}
       >
-        {buttons[0].text}
+        {buttons[0].text.toLowerCase()}
       </button>
       {buttons.slice(1, buttons.length - 1).map((button, index) => {
         return (
@@ -46,7 +46,7 @@ const CapsuleButtonGroup: React.FC<CapsuleButtonGroupProps> = ({ buttons }) => {
               button.onClick();
             }}
           >
-            {button.text}
+            {button.text.toLowerCase()}
           </button>
         );
       })}
@@ -61,7 +61,7 @@ const CapsuleButtonGroup: React.FC<CapsuleButtonGroupProps> = ({ buttons }) => {
           buttons[buttons.length - 1].onClick();
         }}
       >
-        {buttons[buttons.length - 1].text}
+        {buttons[buttons.length - 1].text.toLowerCase()}
       </button>
     </div>
   );

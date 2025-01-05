@@ -7,26 +7,49 @@ import "./index.css";
 import Landing from "./routes/Landing";
 //import reportWebVitals from "./reportWebVitals";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  BrowserRouter,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import DestinationDetails from "./routes/DestinationDetails/DestinationDetails";
+import UserLogin from "./routes/UserLogIn/UserLogin";
+import AuthProvider from "./contexts/AuthContext";
+import ProtectedRoute from "./hooks/RequireAuth";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Landing />,
+    element: <UserLogin />,
     errorElement: <ErrorPage />,
   },
   {
     path: "/destinations",
-    element: <AddDestination />,
+    element: (
+      <ProtectedRoute>
+        <AddDestination />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/destination",
-    element: <DestinationDetails />,
+    element: (
+      <ProtectedRoute>
+        <DestinationDetails />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/home",
-    element: <Home />,
+    element: (
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/login",
+    element: <UserLogin />,
   },
 ]);
 
@@ -35,7 +58,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
 
